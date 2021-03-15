@@ -99,7 +99,7 @@ bool events::out::generictext(std::string packet) {
             gt::send_log("your country set to " + cy + ", (Relog to game to change it successfully!)");
             return true;
         }
-        else if (find_command(chat, "fd")) {
+        else if (find_command(chat, "fastdrop")) {
             fastdrop = !fastdrop;
             if (fastdrop)
                 gt::send_log("Fast Drop is now enabled.");
@@ -107,7 +107,7 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("Fast Drop is now disabled.");
             return true;
         }
-        else if (find_command(chat, "ft")) {
+        else if (find_command(chat, "fasttrash")) {
             fasttrash = !fasttrash;
             if (fasttrash)
                 gt::send_log("Fast Trash is now enabled.");
@@ -180,7 +180,7 @@ bool events::out::generictext(std::string packet) {
                     g_server->send(false, "action|dialog_return\ndialog_name|popup\nnetID|" + std::to_string(player.netid) + "|\nbuttonClicked|kick"); 
                     // You Can |kick |trade |worldban 
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
-                    gt::send_log("Banned");
+                    gt::send_log("Kicked");
                }
             }
             return true;
@@ -195,6 +195,19 @@ bool events::out::generictext(std::string packet) {
                     // You Can |kick |trade |worldban 
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
                     gt::send_log("Banned");
+               }
+            }
+            return true;
+        } else if (find_command(chat, "msgall")) {
+            std::string message = chat.substr(6);
+            for (auto& player : g_server->m_world.players) {
+                auto name_2 = player.name.substr(2); //remove color
+                if (name_2.find(username)) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    g_server->send(false, "action|input\n|text|/msg " + name_2 + " " + message); 
+                    // You Can |kick |trade |worldban 
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    gt::send_log("Msged");
                }
             }
             return true;
