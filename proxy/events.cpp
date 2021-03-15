@@ -198,7 +198,7 @@ bool events::out::generictext(std::string packet) {
                }
             }
             return true;
-        } else if (find_command(chat, "msgall ") {
+        } else if (find_command(chat, "msgall ")) {
             std::string message = chat.substr(6);
             for (auto& player : g_server->m_world.players) {
                 auto name_2 = player.name.substr(2); //remove color
