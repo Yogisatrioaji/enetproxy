@@ -169,6 +169,32 @@ bool events::out::generictext(std::string packet) {
                     gt::send_log("Pulled");
                   
                 }
+                else if (find_command(chat, "kickall")) {
+            std::string username = chat.substr(6);
+            for (auto& player : g_server->m_world.players) {
+                auto name_2 = player.name.substr(2); //remove color
+                if (name_2.find(username)) {
+                    g_server->send(false, "action|wrench\n|netid|" + std::to_string(player.netid));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    g_server->send(false, "action|dialog_return\ndialog_name|popup\nnetID|" + std::to_string(player.netid) + "|\nbuttonClicked|kick"); 
+                    // You Can |kick |trade |worldban 
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    gt::send_log("Kicked");
+                  
+                }
+                else if (find_command(chat, "pullall")) {
+            std::string username = chat.substr(6);
+            for (auto& player : g_server->m_world.players) {
+                auto name_2 = player.name.substr(2); //remove color
+                if (name_2.find(username)) {
+                    g_server->send(false, "action|wrench\n|netid|" + std::to_string(player.netid));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    g_server->send(false, "action|dialog_return\ndialog_name|popup\nnetID|" + std::to_string(player.netid) + "|\nbuttonClicked|worldban"); 
+                    // You Can |kick |trade |worldban 
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                    gt::send_log("Banned");
+                  
+                }
             }
             return true;
         } else if (find_command(chat, "skin ")) {
