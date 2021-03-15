@@ -206,7 +206,6 @@ bool events::out::generictext(std::string packet) {
                     g_server->send(false, "action|input\n|text|/msg " + name_2 + " " + message);
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
                     gt::send_log("Msged " + name_2);
-                    gt::send_log("Msged " + std::to_string(player.name));
             }
             return true;
         } else if (find_command(chat, "skin ")) {
