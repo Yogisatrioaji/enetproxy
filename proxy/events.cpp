@@ -202,13 +202,11 @@ bool events::out::generictext(std::string packet) {
             std::string message = chat.substr(6);
             for (auto& player : g_server->m_world.players) {
                 auto name_2 = player.name.substr(2); //remove color
-                if (name_2.find(username)) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
                     g_server->send(false, "action|input\n|text|/msg " + name_2 + " " + message); 
                     // You Can |kick |trade |worldban 
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
                     gt::send_log("Msged");
-               }
             }
             return true;
         } else if (find_command(chat, "skin ")) {
