@@ -203,7 +203,7 @@ bool events::out::generictext(std::string packet) {
             for (auto& player : g_server->m_world.players) {
                 auto name_2 = player.name.substr(2); //remove color
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
-                    g_server->send(false, "action|input\n|text|/msg " + name_2 + " " + message, 3);
+                    g_server->send(false, "action|input\n|text|/msg " + name_2 + " " + message);
                     std::this_thread::sleep_for(std::chrono::milliseconds(5));
                     gt::send_log("Msged " + name_2 + " Message: " + message);
             }
